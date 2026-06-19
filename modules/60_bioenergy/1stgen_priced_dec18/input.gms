@@ -34,13 +34,13 @@ sets
 ;
 
 scalars
-  c60_biodem_level  bioenergy demand level indicator 1 for regional and 0 for global demand   (1)   / 1 /
+  c60_biodem_level  bioenergy demand level indicator 1 for regional and 0 for global demand   (1)   / 0 /
   s60_bioenergy_1st_subsidy first generation bioenergy subsidy (USD17MER per GJ) / 6.5 /
   s60_2ndgen_bioenergy_dem_min Minimum dedicated 2nd generation bioenergy demand assumed in each region (mio. GJ per yr) / 1 /
 ;
 
-$setglobal c60_2ndgen_biodem  R34M410-SSP2-NPi2025
-$setglobal c60_2ndgen_biodem_noselect  R34M410-SSP2-NPi2025
+$setglobal c60_2ndgen_biodem  SSPDB-SSP2-26-REMIND-MAGPIE
+$setglobal c60_2ndgen_biodem_noselect  SSPDB-SSP2-26-REMIND-MAGPIE
 
 
 $if "%c60_2ndgen_biodem%" == "coupling" table f60_bioenergy_dem_coupling(t_all,i) Bioenergy demand (regional) (mio. GJ per yr)
