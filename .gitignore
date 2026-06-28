@@ -40,3 +40,6 @@ gamslice.txt
 
 /renv.lock
 .Rproj.user
+
+#ignore runtime Python environments
+/.runtime/

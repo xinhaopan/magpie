@@ -61,9 +61,17 @@ for (scen_name in names(scenarios)) {
   gdx     <- file.path(gdx_dir, "fulldata.gdx")
 
   message("\n=== Processing: ", scen_name, " ===")
-  nb      <- NitrogenBudget(gdx, level = "grid")
+  nb <- NitrogenBudget(gdx, level = "grid")
+
+  # NitrogenBudget returns absolute N amounts (mio. t N/yr). Convert to an
+  # application rate on cropland: mio. t N / mio. ha = t N/ha; *1000 = kg N/ha.
   surplus <- nb[, years, "surplus"]
-  surplus <- clean_magpie(collapseNames(surplus, collapsedim = 3.1))
+  crop_area <- croparea(gdx, level = "grid", product_aggr = TRUE, water_aggr = TRUE)
+  crop_area <- crop_area[, years, ]
+  crop_area[crop_area <= 0] <- NA
+
+  surplus <- clean_magpie(collapseNames((surplus / crop_area) * 1000,
+                                        collapsedim = 3.1))
 
   # Attach spatial dimension metadata so as.RasterBrick works
   getSets(surplus, fulldim = FALSE)[1] <- "x.y.iso"
@@ -72,11 +80,12 @@ for (scen_name in names(scenarios)) {
   r <- as.RasterBrick(surplus)
 
   for (out_dir in scen$out_dirs) {
+    dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
     nc_path <- file.path(out_dir, paste0("NLoad_", scen_name, "_2020_2050.nc"))
     message("Writing: ", nc_path)
     raster::writeRaster(r, nc_path, format = "CDF", overwrite = TRUE,
-                        varname = "NLoad", varunit = "kgN_per_ha",
-                        longname = "Nitrogen surplus (N Load)",
+                        varname = "NLoad", varunit = "kgN_per_ha_per_yr",
+                        longname = "Nitrogen surplus application rate (N Load)",
                         xname = "lon", yname = "lat", zname = "time")
     message("Done.")
   }
