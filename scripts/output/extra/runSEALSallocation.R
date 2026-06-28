@@ -68,7 +68,7 @@ sealsInput <- paste0("cell.land_0.5_SEALS_", title, ".nc")
 reportLandUseForSEALS(
   magCellLand = "cell.land_0.5_share.mz",
   outFile = sealsInput,
-  dir = outputdir, selectyears = rep_years
+  outputdir = outputdir, selectyears = rep_years
 )
 
 
@@ -124,8 +124,8 @@ Sys.chmod(iniLock, mode = "0664")
     recursive = TRUE
   )
 
-  if (!dir.exists(file.path(dirProject, "inputs"))) {
-    dir.create(file.path(dirProject, "inputs"), recursive = TRUE)
+  if (!dir.exists(file.path(dirProject, "input"))) {
+    dir.create(file.path(dirProject, "input"), recursive = TRUE)
   }
 
   rcp <- unlist(strsplit(cfg$input["cellular"], "_"))[6]
@@ -188,7 +188,7 @@ Sys.chmod(iniLock, mode = "0664")
     }
 
     sealsCoeffPath <- file.path(
-      dirProject, "inputs",
+      dirProject, "input",
       paste0("seals_global_coefficients_", title, ".csv")
     )
 
@@ -218,7 +218,7 @@ Sys.chmod(iniLock, mode = "0664")
     sealsConfig[, "coarse_projections_input_path"] <- normalizePath(file.path(dir, sealsInput))
     sealsConfig[nrow(sealsConfig), "years"] <- sealsYears
     sealsConfig[nrow(sealsConfig), "calibration_parameters_source"] <- normalizePath(sealsCoeffPath)
-    write.csv(sealsConfig, file.path(dirProject, "inputs", paste0("seals_scenario_config_", title, ".csv")),
+    write.csv(sealsConfig, file.path(dirProject, "input", paste0("seals_scenario_config_", title, ".csv")),
       row.names = FALSE, na = "", quote = FALSE # quote = FALSE is critical here!
     )
   } else {

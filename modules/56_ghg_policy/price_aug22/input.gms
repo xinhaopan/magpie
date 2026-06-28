@@ -64,9 +64,9 @@ pollutants_fader(pollutants) pollutants affected by GHG policy fader
 scalars
   s56_limit_ch4_n2o_price         Upper limit for CH4 and N2O GHG prices (USD17MER per tC) / 4920 /
   s56_cprice_red_factor           Reduction factor for CO2 price (-) / 1 /
-  s56_minimum_cprice              Minium C price (USD17MER per tC) / 3.67 /
+  s56_minimum_cprice              Minium C price (USD17MER per tC) / 0 /
   s56_ghgprice_devstate_scaling   Switch for scaling GHG price with development state (1=on 0=off) / 0 /
-  s56_c_price_induced_aff         Switch for C price driven re-afforestation (1=on 0=off) / 1 /
+  s56_c_price_induced_aff         Switch for C price driven re-afforestation (1=on 0=off) / 0 /
   s56_c_price_exp_aff             Time horizon of CO2 price expectation for re-afforestation (years) / 50 /
   s56_buffer_aff                  Share of carbon credits for re-afforestation projects pooled in a buffer (1) / 0.5 /
   s56_counter                     Counter for C price interpolation (1) / 0 /
@@ -81,11 +81,11 @@ scalars
   s56_fader_cpriceaff_end         End year of C price induced afforestation fade-in (1) / 2030 /
 ;
 
-$setglobal c56_pollutant_prices  R34M410-SSP2-NPi2025
-$setglobal c56_pollutant_prices_noselect  R34M410-SSP2-NPi2025
-$setglobal c56_emis_policy  reddnatveg_nosoil
+$setglobal c56_pollutant_prices  T400-GHG
+$setglobal c56_pollutant_prices_noselect  T0-GHG
+$setglobal c56_emis_policy  all
 $setglobal c56_cprice_aff  secdforest_vegc
-$setglobal c56_mute_ghgprices_until  y2030
+$setglobal c56_mute_ghgprices_until  y2025
 
 $setglobal c56_carbon_stock_pricing  actualNoAcEst
 *   options:  actual, actualNoAcEst

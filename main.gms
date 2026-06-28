@@ -179,9 +179,9 @@ $offlisting
 **************************MODEL SPECIFIC SCALARS********************************
 *                    Key parameters during model runs
 
-$setglobal c_timesteps  coup2100
+$setglobal c_timesteps  5year2050
 $setglobal c_past  till_2015
-$setglobal c_title  default
+$setglobal c_title  Global_GHG2050
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /
